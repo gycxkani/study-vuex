@@ -1,6 +1,9 @@
 import { createStore } from "vuex";
+import module1 from "./modules/module1";
+import module2 from "./modules/module2";
+import module3 from "./modules/module3";
 
-export default createStore({
+const store = createStore({
   state() {
     return {
       count: 0,
@@ -17,10 +20,20 @@ export default createStore({
     },
   },
   mutations: {
-    increment(state) {
-      state.count++;
+    increment(state, payload) {
+      state.count += payload.count;
     },
   },
-  actions: {},
-  modules: {},
+  actions: {
+    asyncIncrement(context, payload) {
+      setTimeout(() => {
+        context.commit("increment", payload);
+      }, 1000);
+    },
+  },
+  // 注册模块
+  modules: { module1, module2 },
 });
+// 动态进行模块注册
+store.registerModule("module3", module3);
+export default store;

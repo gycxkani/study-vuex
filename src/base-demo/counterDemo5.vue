@@ -1,5 +1,5 @@
 <template>
-  <!-- 直接使用状态数据 -->
+  <!-- 使用计算属性 -->
   <h1>计数器5：{{ countText2("次") }}</h1>
   <button @click="increment">增加</button>
 </template>
@@ -14,7 +14,15 @@ export default {
   // },
   methods: {
     increment() {
-      this.$store.commit("increment");
+      // this.$store.commit({
+      //   type: "increment",
+      //   count: 2,
+      // });
+      // 使用action异步修改状态
+      this.$store.dispatch("asyncIncrement", {
+        count: 2,
+        // time: 1000,
+      });
     },
   },
   // 使用 mapGetters 辅助函数将 store.getters 映射成组件的计算属性

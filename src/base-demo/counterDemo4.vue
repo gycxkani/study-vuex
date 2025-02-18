@@ -13,7 +13,15 @@ export default {
   // },
   methods: {
     increment() {
-      this.$store.commit("increment");
+      // this.$store.commit({
+      //   type: "increment",
+      //   count: 2,
+      // });
+      // 使用action异步修改状态
+      this.$store.dispatch("asyncIncrement", {
+        count: 2,
+        // time: 1000,
+      });
     },
   },
 };
